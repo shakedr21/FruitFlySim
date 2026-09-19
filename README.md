@@ -42,6 +42,12 @@ If the resulting sub-network is still too large, I could filter based on the num
 I chose to take 15 neurons per input scalar (60 in total), increasing K until I reach 500-2000 neurons, before removing any connections with less than 10 physical synapses. 
 
 
+# Practice
+Finding the input and output neurons is easy using the FlyWire codex.
+The two output neurons can be found using the query `cell_type == Giant_Fiber`.
+The input neurons are a little more complicated. Due to a limitation for 100 results, I used a separate query for the left and right hemispheres: `output_neuropils {contains} CA {and} super_class == visual_projection {and} side ==  right` (replace `right` with `left` for the second hemisphere).
+The next step is to use a simple python script to sort by the number of output synapses and choose the 40 neurons from each hemisphere with the highest number of output synapses. The script can be found in [scripts/select_input_neurons.py].
+
 # TODO
 - Find the actual input neurons
 - Find the actual output neurons
@@ -49,5 +55,5 @@ I chose to take 15 neurons per input scalar (60 in total), increasing K until I 
 - Use SnnTorch and create the network with the LIF model
 - Set delta_t for the LIF at 1ms
 - Create discrete "steps" for flappy bird (60 fps), where at each step the fly jumps if the output neuron was activated at least once since the last fram.
-- Use Surrogate Gradient Descent (supposedly a feature of SnnTorch)
+- Implement an evolutionary algorithm
 - Visualize the parts of the fly's brain using Spike Raster Plot (supposedly a feature of SnnTorch)
