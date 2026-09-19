@@ -43,10 +43,19 @@ I chose to take 15 neurons per input scalar (60 in total), increasing K until I 
 
 
 # Practice
+## Finding the actual input and output neurons
 Finding the input and output neurons is easy using the FlyWire codex.
 The two output neurons can be found using the query `cell_type == Giant_Fiber`.
 The input neurons are a little more complicated. Due to a limitation for 100 results, I used a separate query for the left and right hemispheres: `output_neuropils {contains} CA {and} super_class == visual_projection {and} side ==  right` (replace `right` with `left` for the second hemisphere).
+The downloaded CSVs of the search results are stored in [data/search_results_output_neuropils_contains_CA_and_super_class_visual_projection_and_side_left.csv] and [data/search_results_output_neuropils_contains_CA_and_super_class_visual_projection_and_side_right.csv].
+
 The next step is to use a simple python script to sort by the number of output synapses and choose the 40 neurons from each hemisphere with the highest number of output synapses. The script can be found in [scripts/select_input_neurons.py].
+The output is stored in [data/input_neurons_left.csv], [data/input_neurons_right.csv] and [data/output_neurons].
+
+## Creating the structural sub-network
+An additional process was done to shrink down the sub-network to a realistic size to train: instead of keeping all nodes that are reachable in K steps from either the inputs or the outputs, I kept only those that are reachable from both inputs and outputs.
+I used `K=4` and set the minimal synapse threshold at 12, which got me a sub-network of about ~1900 nodes and ~27,000 edges.
+The final sub-network is stored in [data/flappy_bird_subnetwork.csv].
 
 # TODO
 - Find the actual input neurons
