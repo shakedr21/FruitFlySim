@@ -1,7 +1,6 @@
 from typing import List, Optional
 
 import numpy as np
-import pygame
 
 from fruitflysim.geometry import Hitbox, Vector, make_vector
 from fruitflysim.timer import Timer
@@ -52,6 +51,3 @@ class GameObject:
             for mine in self.hitboxes()
             for theirs in other.hitboxes()
         )
-
-    def render(self, surface: pygame.Surface):
-        pass

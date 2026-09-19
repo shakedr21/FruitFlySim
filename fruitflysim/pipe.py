@@ -1,9 +1,6 @@
 import random
-from typing import List
+from typing import List, Optional
 
-import pygame
-
-from fruitflysim import colors
 from fruitflysim.bird import Bird
 from fruitflysim.game_object import GameObject
 from fruitflysim.geometry import Hitbox, make_vector
@@ -20,10 +17,19 @@ class Pipe(GameObject):
         self._gap_top = gap_top
 
     @classmethod
-    def new_pipe(cls):
+    def new_pipe(cls, rng: Optional[random.Random] = None):
+        rng = rng if rng is not None else random
         max_gap_top = 1.0 - cls.PIPE_OPENING_SIZE - cls._MARGIN
-        gap_top = random.uniform(cls._MARGIN, max(cls._MARGIN, max_gap_top))
+        gap_top = rng.uniform(cls._MARGIN, max(cls._MARGIN, max_gap_top))
         return Pipe(make_vector(1.0, 0.0), cls.PIPE_SPEED, gap_top)
+
+    @property
+    def gap_top(self) -> float:
+        return self._gap_top
+
+    @property
+    def opening_center_y(self) -> float:
+        return self._gap_top + self.PIPE_OPENING_SIZE / 2
 
     def is_offscreen(self) -> bool:
         return self._location[0] + self.PIPE_WIDTH < 0
@@ -37,16 +43,3 @@ class Pipe(GameObject):
             make_vector(self.PIPE_WIDTH, max(0.0, 1.0 - bottom_y)),
         )
         return [top, bottom]
-
-    def render(self, surface: pygame.Surface):
-        screen_size = surface.get_size()
-        rim_px = max(6, int(screen_size[1] * 0.02))
-        for rect in (hitbox.to_pygame_rect(screen_size) for hitbox in self.hitboxes()):
-            pygame.draw.rect(surface, colors.PIPE, rect)
-            pygame.draw.rect(surface, colors.PIPE_RIM, rect, width=3)
-            rim = pygame.Rect(rect.left - 4, 0, rect.width + 8, rim_px)
-            if rect.top <= 0:
-                rim.top = rect.bottom - rim_px
-            else:
-                rim.top = rect.top
-            pygame.draw.rect(surface, colors.PIPE_RIM, rim)

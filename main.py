@@ -1,8 +1,8 @@
-from fruitflysim.game import Game
+from fruitflysim.play import run
 
 
 def main():
-    Game().run()
+    run()
 
 
 if __name__ == "__main__":

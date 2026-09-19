@@ -1,9 +1,8 @@
 from dataclasses import dataclass
-from typing import Annotated, Literal, Tuple
+from typing import Annotated, Literal
 
 import numpy as np
 import numpy.typing as npt
-import pygame
 
 Vector = Annotated[npt.NDArray[np.float64], Literal[2]]
 
@@ -42,11 +41,3 @@ class Hitbox:
             and self.top < other.bottom
             and other.top < self.bottom
         )
-
-    def to_pygame_rect(self, screen_size: Tuple[int, int]) -> pygame.Rect:
-        screen_width, screen_height = screen_size
-        width_px = max(1, int(round(self.dimensions[0] * screen_width)))
-        height_px = max(1, int(round(self.dimensions[1] * screen_height)))
-        left = int(round(self.location[0] * screen_width))
-        top = int(round(self.location[1] * screen_height))
-        return pygame.Rect(left, top, width_px, height_px)
