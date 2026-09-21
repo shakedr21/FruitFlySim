@@ -1,6 +1,6 @@
-from Game.game_object import GameObject
-from Game.geometry import make_vector
-from Game.timer import Timer
+from src.Game.game_object import GameObject
+from src.Game.geometry import make_vector
+from src.Game.timer import Timer
 
 
 class Bird(GameObject):

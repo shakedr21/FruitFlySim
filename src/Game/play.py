@@ -2,12 +2,12 @@ from typing import Tuple
 
 import pygame
 
-from Game import colors
-from Game.bird import Bird
-from Game.game import Game
-from Game.geometry import Hitbox
-from Game.pipe import Pipe
-from Game.timer import Timer
+from src.Game import colors
+from src.Game.bird import Bird
+from src.Game.game import Game
+from src.Game.geometry import Hitbox
+from src.Game.pipe import Pipe
+from src.Game.timer import Timer
 
 
 def hitbox_to_rect(hitbox: Hitbox, screen_size: Tuple[int, int]) -> pygame.Rect:

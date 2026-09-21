@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 import torch
 
-
 def load_connectome_to_tensors(csv_path: str, input_root_ids: list[int], output_root_ids: list[int]):
     df = pd.read_csv(csv_path)
 

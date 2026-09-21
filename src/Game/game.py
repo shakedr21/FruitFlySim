@@ -1,12 +1,12 @@
 import random
 from typing import List, Optional
 
-from Game.bird import Bird
-from Game.game_object import GameObject
-from Game.geometry import make_vector
-from Game.observation import Observation
-from Game.pipe import Pipe
-from Game.timer import Timer
+from src.Game.bird import Bird
+from src.Game.game_object import GameObject
+from src.Game.geometry import make_vector
+from src.Game.observation import Observation
+from src.Game.pipe import Pipe
+from src.Game.timer import Timer
 
 
 class Game:

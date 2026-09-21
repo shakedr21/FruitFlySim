@@ -1,17 +1,11 @@
 import polars as pl
-import pandas as pd
 import rustworkx as rx
 import numpy as np
 import time
 
-from consts import (
-    connectome_file,
-    input_neuron_group_names,
-    input_output_neuron_data_dir_path,
-    csv_column_name,
-    output_neuron_group_name,
-    subnetwork_csv_path
-)
+from src.common.consts import connectome_file, subnetwork_csv_path
+
+from input_output_ids_helper import get_inupt_ids, get_output_ids
 
 MIN_SYN_THRESHOLD = 12
 
@@ -135,12 +129,8 @@ def extract_subnetwork(connections_file: str, input_ids: list[int], output_ids: 
 if __name__ == "__main__":
     # --- YOUR DATA GOES HERE ---
 
-    input_ids = []
-    for group_name in input_neuron_group_names:
-        fd = pd.read_csv(f"{input_output_neuron_data_dir_path}/{group_name}.csv")
-        input_ids += list(fd[csv_column_name])
-
-    output_ids = list(pd.read_csv(f"{input_output_neuron_data_dir_path}/{output_neuron_group_name}.csv").root_id)
+    input_ids = get_inupt_ids()
+    output_ids = get_output_ids()
 
     # Run the extraction
     final_subnetwork_df = extract_subnetwork(

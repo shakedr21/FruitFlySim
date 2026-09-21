@@ -1,9 +1,10 @@
 import pandas as pd
-from consts import (
+from src.common.consts import (
     input_neuron_group_names as output_group_names,
     search_result_file_paths as input_file_paths,
     input_output_neuron_data_dir_path,
-    csv_column_name
+    csv_column_name,
+    neurons_per_group
 )
 
 
@@ -22,7 +23,7 @@ def extract_ids_with_most_output_synapses(neuron_data: pd.DataFrame, count: int)
     assert count > 0, "Illegal count!"
 
     sorted_neuron_data = neuron_data.sort_values(by="output_synapses", ascending=False)
-    return list(sorted_neuron_data[:count]["root_id"])
+    return list(sorted_neuron_data[:count][csv_column_name])
 
 def distribute_neurons_fairly(input_file_paths, output_group_count, neurons_per_group):
     neurons_per_input_file = (neurons_per_group * output_group_count) // len(input_file_paths)
@@ -47,9 +48,7 @@ def save_output_group_to_csv(output_group, output_file_path):
     df.to_csv(output_file_path)
 
 if __name__ == "__main__":
-    NEURONS_PER_GROUP = 20
-
-    output_groups = distribute_neurons_fairly(input_file_paths, len(output_group_names), 20)
+    output_groups = distribute_neurons_fairly(input_file_paths, len(output_group_names), neurons_per_group)
     assert len(output_group_names) == len(output_groups)
 
     for group_id in range(len(output_groups)):

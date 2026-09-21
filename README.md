@@ -50,7 +50,7 @@ The input neurons are a little more complicated. Due to a limitation for 100 res
 The downloaded CSVs of the search results are stored in [data/search_results_output_neuropils_contains_CA_and_super_class_visual_projection_and_side_left.csv] and [data/search_results_output_neuropils_contains_CA_and_super_class_visual_projection_and_side_right.csv].
 
 The next step is to use a simple python script to sort by the number of output synapses and choose the 40 neurons from each hemisphere with the highest number of output synapses. The script can be found in [scripts/select_input_neurons.py].
-The output is stored in [data/input_neurons_left.csv], [data/input_neurons_right.csv] and [data/output_neurons].
+The output is stored in [data/input_output_neurons].
 
 ## Creating the structural sub-network
 An additional process was done to shrink down the sub-network to a realistic size to train: instead of keeping all nodes that are reachable in K steps from either the inputs or the outputs, I kept only those that are reachable from both inputs and outputs.

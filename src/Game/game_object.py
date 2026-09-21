@@ -2,8 +2,8 @@ from typing import List, Optional
 
 import numpy as np
 
-from Game.geometry import Hitbox, Vector, make_vector
-from Game.timer import Timer
+from src.Game.geometry import Hitbox, Vector, make_vector
+from src.Game.timer import Timer
 
 
 class GameObject:

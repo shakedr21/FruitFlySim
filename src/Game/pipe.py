@@ -1,9 +1,9 @@
 import random
 from typing import List, Optional
 
-from Game.bird import Bird
-from Game.game_object import GameObject
-from Game.geometry import Hitbox, make_vector
+from src.Game.bird import Bird
+from src.Game.game_object import GameObject
+from src.Game.geometry import Hitbox, make_vector
 
 
 class Pipe(GameObject):

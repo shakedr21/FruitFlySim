@@ -1,4 +1,4 @@
-from Game.play import run
+from src.Game.play import run
 
 
 def main():
