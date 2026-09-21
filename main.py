@@ -1,4 +1,4 @@
-from fruitflysim.play import run
+from Game.play import run
 
 
 def main():

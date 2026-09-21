@@ -4,6 +4,15 @@ import rustworkx as rx
 import numpy as np
 import time
 
+from consts import (
+    connectome_file,
+    input_neuron_group_names,
+    input_output_neuron_data_dir_path,
+    csv_column_name,
+    output_neuron_group_name,
+    subnetwork_csv_path
+)
+
 MIN_SYN_THRESHOLD = 12
 
 def extract_subnetwork(connections_file: str, input_ids: list[int], output_ids: list[int], max_hops: int = 4):
@@ -126,23 +135,21 @@ def extract_subnetwork(connections_file: str, input_ids: list[int], output_ids: 
 if __name__ == "__main__":
     # --- YOUR DATA GOES HERE ---
 
-    # 1. The path to the downloaded 68MB CSV
-    CONNECTIONS_FILE = "data/connections_princeton.csv"
+    input_ids = []
+    for group_name in input_neuron_group_names:
+        fd = pd.read_csv(f"{input_output_neuron_data_dir_path}/{group_name}.csv")
+        input_ids += list(fd[csv_column_name])
 
-    input_ids_left = list(pd.read_csv("data/input_neurons_left.csv").root_id)
-    input_ids_right = list(pd.read_csv("data/input_neurons_right.csv").root_id)
-    input_ids = input_ids_left + input_ids_right
-
-    output_ids = list(pd.read_csv("data/output_neurons.csv").root_id)
+    output_ids = list(pd.read_csv(f"{input_output_neuron_data_dir_path}/{output_neuron_group_name}.csv").root_id)
 
     # Run the extraction
     final_subnetwork_df = extract_subnetwork(
-        connections_file=CONNECTIONS_FILE,
+        connections_file=connectome_file,
         input_ids=input_ids,
         output_ids=output_ids,
         max_hops=3
     )
 
     # Save the final small edge list to feed into snnTorch
-    final_subnetwork_df.write_csv("data/flappy_bird_subnetwork.csv")
+    final_subnetwork_df.write_csv(subnetwork_csv_path)
     print(final_subnetwork_df.head())

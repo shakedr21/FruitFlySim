@@ -1,9 +1,9 @@
 import random
 from typing import List, Optional
 
-from fruitflysim.bird import Bird
-from fruitflysim.game_object import GameObject
-from fruitflysim.geometry import Hitbox, make_vector
+from Game.bird import Bird
+from Game.game_object import GameObject
+from Game.geometry import Hitbox, make_vector
 
 
 class Pipe(GameObject):

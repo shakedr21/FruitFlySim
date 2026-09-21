@@ -1,6 +1,6 @@
-from fruitflysim.game_object import GameObject
-from fruitflysim.geometry import make_vector
-from fruitflysim.timer import Timer
+from Game.game_object import GameObject
+from Game.geometry import make_vector
+from Game.timer import Timer
 
 
 class Bird(GameObject):

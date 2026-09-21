@@ -2,8 +2,8 @@ from typing import List, Optional
 
 import numpy as np
 
-from fruitflysim.geometry import Hitbox, Vector, make_vector
-from fruitflysim.timer import Timer
+from Game.geometry import Hitbox, Vector, make_vector
+from Game.timer import Timer
 
 
 class GameObject:
